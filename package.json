@@ -1,0 +1,10 @@
+{
+  "name": "d.js",
+  "version": "0.0.1-beta",
+  "description": "react flux framework",
+  "main": "dist/d.min.js",
+  "repository": "https://github.com/naoenn/d.js.git",
+  "author": "naoenn <y.dojo.sysdj@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
