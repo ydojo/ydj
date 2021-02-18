@@ -1,9 +1,9 @@
 {
-  "name": "dj.s",
+  "name": "ydj",
   "version": "0.0.1-beta",
   "description": "react flux framework",
-  "main": "dist/d.min.js",
-  "repository": "https://github.com/naoenn/dj.s.git",
+  "main": "dist/ydj.min.js",
+  "repository": "https://github.com/ydojo/ydj.git",
   "author": "naoenn <y.dojo.sysdj@gmail.com>",
   "license": "MIT",
   "private": false,

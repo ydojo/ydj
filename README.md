@@ -1,10 +1,10 @@
-# dj.s
+# ydj
 
 react flux framework
 
-## dj.s flux
+## ydj flux
 
-![dj.s flux](./flux.png)
+![ydj flux](./flux.png)
 
 ## Why multiple dispathers?
 
