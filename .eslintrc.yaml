@@ -19,6 +19,7 @@ parserOptions:
   project: ./tsconfig.json
 plugins:
   - react
+  - react-hooks
   - jest
   - prettier
   - '@typescript-eslint'
