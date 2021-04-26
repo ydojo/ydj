@@ -1,7 +1,8 @@
 export abstract class Store<T> implements ydj.IStore<T> {
-  abstract state?: T;
-  abstract init(): T;
+  state: T | null = null;
+  updated: boolean = false;
+  initialized: boolean = false;
   abstract actions: {
-    [action: string]: (...args: any[]) => T | void;
+    [action: string]: ydj.StoreCallback;
   };
 }
