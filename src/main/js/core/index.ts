@@ -49,27 +49,16 @@ export const dispatch: ydj.Dispatch = <T>(action: string, args: T) => {
 
     if (res) {
       if (res instanceof Promise) {
-        res.then(() => {
-          if (store.updated) {
-            setState(store.state);
-            store.updated = false;
-          }
-        });
+        res.then(() => setState(store.state));
       } else {
         const [ac, data] = res;
         if (data instanceof Promise) {
           data.then((val) => {
-            if (store.updated) {
-              setState(store.state);
-              store.updated = false;
-            }
+            setState(store.state);
             dispatch(ac, val);
           });
         } else {
-          if (store.updated) {
-            setState(store.state);
-            store.updated = false;
-          }
+          setState(store.state);
           dispatch(ac, data);
         }
       }

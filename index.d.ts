@@ -6,7 +6,6 @@ export as namespace ydj;
 
 declare namespace ydj {
   interface BaseStore {
-    updated: boolean;
     initialized: boolean;
     /**
      * 初期処理
@@ -31,7 +30,6 @@ declare namespace ydj {
    */
   class IStoreClass<T> extends IStore<T> {
     state: T | null;
-    updated: boolean;
     initialized: boolean;
     actions: {
       [action: string]: StoreCallback;
