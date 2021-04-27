@@ -1,6 +1,11 @@
+import { useState } from 'react';
+import { addStore, dispatch } from '../core';
+
 export const useStore: ydj.UseStore = <T>(
-  storeClass: ydj.IStoreClass<T> | ydj.IStore<T>
+  storeClass: typeof ydj.IStoreClass | ydj.IStore<T>,
+  init: T
 ) => {
-  const dispatch = (action: string) => {};
-  return [null, dispatch];
+  const [state, setState] = useState(init);
+  addStore(storeClass, setState);
+  return [state, dispatch];
 };
