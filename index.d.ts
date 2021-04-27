@@ -1,13 +1,11 @@
-export = ydj;
+declare global {
+  import React from 'react';
+}
 
 export as namespace ydj;
 
 declare namespace ydj {
-  /**
-   * Storeインターフェース
-   */
-  interface IStore<T> {
-    state: T | null;
+  interface BaseStore {
     updated: boolean;
     initialized: boolean;
     /**
@@ -21,31 +19,74 @@ declare namespace ydj {
       [action: string]: StoreCallback;
     };
   }
+  /**
+   * Storeインターフェース
+   */
+  interface IStore<T> extends BaseStore {
+    state: T | null;
+  }
+
+  /**
+   * Storeクラス
+   */
+  class IStoreClass<T> extends IStore<T> {
+    state: T | null;
+    updated: boolean;
+    initialized: boolean;
+    actions: {
+      [action: string]: StoreCallback;
+    };
+    setState(state: T | null): void;
+  }
 
   /**
    * action callback
    */
-  type StoreCallback = (...args: any[]) => void | Promise<void>;
-
-  /**
-   * storeクラス
-   */
-  type IStoreClass<T> = new () => IStore<T>;
+  type StoreCallback = <T>(
+    arg: T
+  ) => void | [action: string, data: any | Promise<any>] | Promise<void>;
 
   /**
    * useStoreメソッド
    */
   type UseStore = <T>(
-    storeClass: IStoreClass<T> | IStore<T>
-  ) => [T | null, Dispatch];
+    storeClass: typeof IStoreClass | IStore<T>,
+    init: T
+  ) => [T, Dispatch];
 
   /**
    * dispatchメソッド
    */
-  type Dispatch = (action: string, ...args: any[]) => void;
+  type Dispatch = <T>(action: string, arg: T) => void;
 
   /**
-   * dispatcher
+   * store map
    */
-  class Dispatcher {}
+  type StoreMap = Map<IStore<any> | typeof IStoreClass, IStore<any>>;
+
+  /**
+   * add store method
+   */
+  type AddStore = <T>(
+    storeClass: typeof IStoreClass | IStore<T>,
+    setState: React.Dispatch<React.SetStateAction<T>>
+  ) => void;
+
+  /**
+   * action map
+   */
+  interface ActionMap {
+    [action: string]: {
+      store: IStore<T>;
+      setState: React.Dispatch<React.SetStateAction<T>>;
+    };
+  }
+
+  /**
+   * set Actions
+   */
+  type SetActionMap = <T>(
+    store: IStore<T>,
+    setState: React.Dispatch<React.SetStateAction<T>>
+  ) => void;
 }
