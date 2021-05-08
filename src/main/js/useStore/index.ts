@@ -1,8 +1,8 @@
+import ydj from 'index';
 import { useState } from 'react';
 import { addStore, dispatch } from '../core';
-import ydj from 'index';
 
-export const useStore: ydj.UseStore = <T>(
+export const useStore = <T>(
   storeClass: typeof ydj.IStoreClass | ydj.IStore<T>,
   init: T
 ) => {
