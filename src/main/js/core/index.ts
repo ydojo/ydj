@@ -1,4 +1,5 @@
 import React from 'react';
+import ydj from 'index';
 
 const storeMap: ydj.StoreMap = new Map();
 

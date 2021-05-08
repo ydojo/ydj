@@ -2,6 +2,8 @@ declare global {
   import React from 'react';
 }
 
+export = ydj;
+
 export as namespace ydj;
 
 declare namespace ydj {

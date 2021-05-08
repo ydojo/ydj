@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { addStore, dispatch } from '../core';
+import ydj from 'index';
 
 export const useStore: ydj.UseStore = <T>(
   storeClass: typeof ydj.IStoreClass | ydj.IStore<T>,
