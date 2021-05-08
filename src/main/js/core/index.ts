@@ -1,9 +1,12 @@
 import React from 'react';
-import ydj from 'index';
+import ydj, { ActionMap } from 'index';
 
-const storeMap: ydj.StoreMap = new Map();
+const storeMap: Map<
+  ydj.IStore<any> | typeof ydj.IStoreClass,
+  ydj.IStore<any>
+> = new Map();
 
-export const addStore: ydj.AddStore = <T>(
+export const addStore = <T>(
   storeClass: typeof ydj.IStoreClass | ydj.IStore<T>,
   setState: React.Dispatch<React.SetStateAction<T>>
 ) => {
@@ -27,9 +30,9 @@ export const addStore: ydj.AddStore = <T>(
   }
 };
 
-export const actionMap: ydj.ActionMap = {};
+const actionMap: ActionMap = {};
 
-const setActionMap: ydj.SetActionMap = <T>(
+const setActionMap = <T>(
   store: ydj.IStore<T>,
   setState: React.Dispatch<React.SetStateAction<T>>
 ) => {
@@ -42,7 +45,7 @@ const setActionMap: ydj.SetActionMap = <T>(
   }
 };
 
-export const dispatch: ydj.Dispatch = <T>(action: string, args: T) => {
+export const dispatch = <T>(action: string, args: T) => {
   if (actionMap[action]) {
     const { store, setState } = actionMap[action];
     const callback = store.actions[action];
