@@ -20,7 +20,7 @@ declare namespace ydj {
   ): [T, Dispatch];
 
   /**
-   * Storeインターフェース
+   * Storeクラス
    */
   declare class IStore<T> {
     state: T | null;
@@ -35,18 +35,6 @@ declare namespace ydj {
     actions: {
       [action: string]: ydj.StoreCallback;
     };
-  }
-
-  /**
-   * Storeクラス
-   */
-  declare abstract class Store<T> extends IStore<T> {
-    state: T | null;
-    initialized: boolean;
-    abstract actions: {
-      [action: string]: StoreCallback;
-    };
-    setState(state: T | null): void;
   }
 
   /**

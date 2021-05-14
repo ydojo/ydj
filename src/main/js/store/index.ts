@@ -1,4 +1,4 @@
-export abstract class Store<T> implements ydj.Store<T> {
+export abstract class Store<T> implements ydj.IStore<T> {
   state: T | null = null;
   initialized: boolean = false;
   abstract actions: {
