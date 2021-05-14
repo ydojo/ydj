@@ -15,11 +15,15 @@ declare namespace ydj {
    * useStoreメソッド
    */
   declare function useStore<T>(
-    storeClass: typeof IStoreClass | IStore<T>,
+    storeClass: typeof IStore | IStore<T>,
     init: T
   ): [T, Dispatch];
 
-  declare interface BaseStore {
+  /**
+   * Storeインターフェース
+   */
+  declare class IStore<T> {
+    state: T | null;
     initialized: boolean;
     /**
      * 初期処理
@@ -34,16 +38,9 @@ declare namespace ydj {
   }
 
   /**
-   * Storeインターフェース
-   */
-  declare interface IStore<T> extends BaseStore {
-    state: T | null;
-  }
-
-  /**
    * Storeクラス
    */
-  declare abstract class Store<T> implements IStore<T> {
+  declare abstract class Store<T> extends IStore<T> {
     state: T | null;
     initialized: boolean;
     abstract actions: {
@@ -51,11 +48,6 @@ declare namespace ydj {
     };
     setState(state: T | null): void;
   }
-
-  /**
-   * Storeクラス
-   */
-  declare class IStoreClass<T> extends Store<T> {}
 
   /**
    * action callback

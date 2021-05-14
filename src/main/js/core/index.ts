@@ -2,12 +2,12 @@ import React from 'react';
 import ydj, { ActionMap } from 'index';
 
 const storeMap: Map<
-  ydj.IStore<any> | typeof ydj.IStoreClass,
+  ydj.IStore<any> | typeof ydj.IStore,
   ydj.IStore<any>
 > = new Map();
 
 export const addStore = <T>(
-  storeClass: typeof ydj.IStoreClass | ydj.IStore<T>,
+  storeClass: typeof ydj.IStore | ydj.IStore<T>,
   setState: React.Dispatch<React.SetStateAction<T>>
 ) => {
   let value: ydj.IStore<T> | undefined = storeMap.get(storeClass);
