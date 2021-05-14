@@ -35,6 +35,7 @@ declare namespace ydj {
     actions: {
       [action: string]: ydj.StoreCallback;
     };
+    setState(state: T | null): void;
   }
 
   /**
