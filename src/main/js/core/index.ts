@@ -66,6 +66,8 @@ export const dispatch = <T>(action: string, args: T) => {
           dispatch(ac, data);
         }
       }
+    } else {
+      setState(store.state);
     }
   }
 };
