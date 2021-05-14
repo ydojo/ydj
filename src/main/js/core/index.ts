@@ -2,15 +2,15 @@ import React from 'react';
 import ydj, { ActionMap } from 'index';
 
 const storeMap: Map<
-  ydj.IStore<any> | typeof ydj.IStore,
-  ydj.IStore<any>
+  ydj.Store<any> | typeof ydj.Store,
+  ydj.Store<any>
 > = new Map();
 
 export const addStore = <T>(
-  storeClass: typeof ydj.IStore | ydj.IStore<T>,
+  storeClass: typeof ydj.Store | ydj.Store<T>,
   setState: React.Dispatch<React.SetStateAction<T>>
 ) => {
-  let value: ydj.IStore<T> | undefined = storeMap.get(storeClass);
+  let value: ydj.Store<T> | undefined = storeMap.get(storeClass);
 
   if (!value) {
     if (storeClass instanceof Function) {
@@ -33,7 +33,7 @@ export const addStore = <T>(
 const actionMap: ActionMap = {};
 
 const setActionMap = <T>(
-  store: ydj.IStore<T>,
+  store: ydj.Store<T>,
   setState: React.Dispatch<React.SetStateAction<T>>
 ) => {
   for (let action in store.actions) {
