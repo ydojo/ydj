@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { addStore, dispatch } from '../core';
 
 export const useStore = <T>(
-  storeClass: typeof ydj.Store | ydj.Store<T>,
+  storeClass: new () => ydj.Store<T> | ydj.Store<T>,
   init: T
 ) => {
   const [state, setState] = useState(init);

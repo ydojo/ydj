@@ -2,19 +2,19 @@ import React from 'react';
 import ydj, { ActionMap } from 'index';
 
 const storeMap: Map<
-  ydj.Store<any> | typeof ydj.Store,
+  ydj.Store<any> | (new () => ydj.Store<any>),
   ydj.Store<any>
 > = new Map();
 
 export const addStore = <T>(
-  storeClass: typeof ydj.Store | ydj.Store<T>,
+  storeClass: new () => ydj.Store<T> | ydj.Store<T>,
   setState: React.Dispatch<React.SetStateAction<T>>
 ) => {
   let value: ydj.Store<T> | undefined = storeMap.get(storeClass);
 
   if (!value) {
     if (storeClass instanceof Function) {
-      value = new storeClass<T>();
+      value = new storeClass();
     } else {
       value = storeClass;
     }

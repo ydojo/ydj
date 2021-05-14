@@ -15,7 +15,7 @@ declare namespace ydj {
    * useStoreメソッド
    */
   declare function useStore<T>(
-    storeClass: typeof Store | Store<T>,
+    storeClass: new () => Store<T> | Store<T>,
     init: T
   ): [T, Dispatch];
 
