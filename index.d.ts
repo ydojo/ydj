@@ -15,14 +15,14 @@ declare namespace ydj {
    * useStoreメソッド
    */
   declare function useStore<T>(
-    storeClass: typeof IStore | IStore<T>,
+    storeClass: typeof Store | Store<T>,
     init: T
   ): [T, Dispatch];
 
   /**
    * Storeクラス
    */
-  declare class IStore<T> {
+  declare class Store<T> {
     state: T | null;
     initialized: boolean;
     /**
@@ -50,7 +50,7 @@ declare namespace ydj {
  */
 export interface ActionMap {
   [action: string]: {
-    store: IStore<T>;
+    store: Store<T>;
     setState: React.Dispatch<React.SetStateAction<T>>;
   };
 }
