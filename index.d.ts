@@ -60,9 +60,9 @@ declare namespace ydj {
   /**
    * action callback
    */
-  declare type StoreCallback = <T>(
-    arg: T
-  ) => void | [action: string, data: any | Promise<any>] | Promise<void>;
+  declare type StoreCallback = (
+    arg: any
+  ) => void | [action: string, data: any | Promise<any | void>] | Promise<void>;
 }
 
 /**
