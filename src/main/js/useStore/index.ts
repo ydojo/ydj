@@ -8,5 +8,9 @@ export const useStore = <T>(
 ) => {
   const [state, setState] = useState(init);
   const initState = addStore(storeClass, setState, init);
-  return [initState, dispatch];
+  if (initState !== undefined) {
+    return [initState, dispatch];
+  } else {
+    return [state, dispatch];
+  }
 };
