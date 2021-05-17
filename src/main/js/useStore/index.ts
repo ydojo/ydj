@@ -4,7 +4,7 @@ import { addStore, dispatch } from '../core';
 
 export const useStore = <T>(
   storeClass: new () => ydj.Store<T> | ydj.Store<T>,
-  init: T
+  init?: T
 ) => {
   const [state, setState] = useState(init);
   addStore(storeClass, setState);

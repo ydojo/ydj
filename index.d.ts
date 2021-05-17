@@ -10,13 +10,13 @@ declare namespace ydj {
   /**
    * dispatchメソッド
    */
-  declare type Dispatch = <T>(action: string, arg: T) => void;
+  declare type Dispatch = <T>(action: string, arg?: T) => void;
   /**
    * useStoreメソッド
    */
   declare function useStore<T>(
     storeClass: new () => Store<T> | Store<T>,
-    init: T
+    init?: T
   ): [T, Dispatch];
 
   /**
@@ -54,7 +54,7 @@ declare namespace ydj {
   interface ActionMap {
     [action: string]: {
       store: Store<T>;
-      setState: React.Dispatch<React.SetStateAction<T>>;
+      setState: React.Dispatch<React.SetStateAction<T | undefined>>;
     };
   }
 }
