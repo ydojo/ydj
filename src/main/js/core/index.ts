@@ -29,8 +29,8 @@ export const addStore = <T>(
     storeMap.set(storeClass, value);
 
     setActionMap(value, setState);
+    return value.state;
   }
-  return value.state;
 };
 
 const actionMap: ActionMap = {};
