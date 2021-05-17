@@ -8,7 +8,7 @@ const storeMap: Map<
 
 export const addStore = <T>(
   storeClass: new () => ydj.Store<T> | ydj.Store<T>,
-  setState: React.Dispatch<React.SetStateAction<T>>
+  setState: React.Dispatch<React.SetStateAction<T | undefined>>
 ) => {
   let value: ydj.Store<T> | undefined = storeMap.get(storeClass);
 
@@ -34,7 +34,7 @@ const actionMap: ActionMap = {};
 
 const setActionMap = <T>(
   store: ydj.Store<T>,
-  setState: React.Dispatch<React.SetStateAction<T>>
+  setState: React.Dispatch<React.SetStateAction<T | undefined>>
 ) => {
   for (let action in store.actions) {
     if (!actionMap[action]) {
@@ -45,7 +45,7 @@ const setActionMap = <T>(
   }
 };
 
-export const dispatch = <T>(action: string, args: T) => {
+export const dispatch = <T>(action: string, args?: T) => {
   if (actionMap[action]) {
     const { store, setState } = actionMap[action];
     const callback = store.actions[action];
