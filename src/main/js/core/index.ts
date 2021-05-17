@@ -8,7 +8,8 @@ const storeMap: Map<
 
 export const addStore = <T>(
   storeClass: new () => ydj.Store<T> | ydj.Store<T>,
-  setState: React.Dispatch<React.SetStateAction<T | undefined>>
+  setState: React.Dispatch<React.SetStateAction<T | undefined>>,
+  init?: T
 ) => {
   let value: ydj.Store<T> | undefined = storeMap.get(storeClass);
 
@@ -21,6 +22,7 @@ export const addStore = <T>(
 
     if (!value.initialized) {
       value.init?.();
+      if (init !== undefined) value.state = init;
       value.initialized = true;
     }
 
@@ -28,6 +30,7 @@ export const addStore = <T>(
 
     setActionMap(value, setState);
   }
+  return value.state;
 };
 
 const actionMap: ActionMap = {};
