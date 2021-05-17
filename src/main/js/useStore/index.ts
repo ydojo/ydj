@@ -7,6 +7,6 @@ export const useStore = <T>(
   init?: T
 ) => {
   const [state, setState] = useState(init);
-  addStore(storeClass, setState);
-  return [state, dispatch];
+  const initState = addStore(storeClass, setState, init);
+  return [initState, dispatch];
 };
