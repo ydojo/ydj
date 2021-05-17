@@ -55,7 +55,7 @@ export const dispatch = <T>(action: string, args: T) => {
       if (res instanceof Promise) {
         res.then(() => setState(store.state));
       } else {
-        const [ac, data] = res;
+        const { action: ac, data } = res;
         if (data instanceof Promise) {
           data.then((val) => {
             setState(store.state);

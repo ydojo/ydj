@@ -43,15 +43,18 @@ declare namespace ydj {
    */
   declare type StoreCallback = (
     arg: any
-  ) => void | [action: string, data: any | Promise<any | void>] | Promise<void>;
-}
+  ) =>
+    | void
+    | { action: string; data?: any | Promise<any | void> }
+    | Promise<void>;
 
-/**
- * action map
- */
-export interface ActionMap {
-  [action: string]: {
-    store: Store<T>;
-    setState: React.Dispatch<React.SetStateAction<T>>;
-  };
+  /**
+   * action map
+   */
+  interface ActionMap {
+    [action: string]: {
+      store: Store<T>;
+      setState: React.Dispatch<React.SetStateAction<T>>;
+    };
+  }
 }
