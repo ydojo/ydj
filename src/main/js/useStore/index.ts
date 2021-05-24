@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addStore, dispatch, getStore } from '../core';
+import { addStore, getStore } from '../core';
 
 export const useStore = <T>(
   storeClass: (new () => ydj.Store<T>) | ydj.Store<T>,
@@ -20,5 +20,5 @@ export const useStore = <T>(
       }
     }
   });
-  return [state, dispatch];
+  return state;
 };
