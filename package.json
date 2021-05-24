@@ -1,6 +1,6 @@
 {
   "name": "ydj",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "react flux framework",
   "main": "dist/ydj.min.js",
   "repository": "https://github.com/ydojo/ydj.git",
