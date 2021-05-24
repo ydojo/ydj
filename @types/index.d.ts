@@ -3,7 +3,6 @@ declare global {
 }
 
 export = ydj;
-
 export as namespace ydj;
 
 declare namespace ydj {
@@ -15,7 +14,7 @@ declare namespace ydj {
    * useStoreメソッド
    */
   declare function useStore<T>(
-    storeClass: new () => Store<T> | Store<T>,
+    storeClass: (new () => Store<T>) | Store<T>,
     init?: T
   ): [T, Dispatch];
 
@@ -23,12 +22,13 @@ declare namespace ydj {
    * Storeクラス
    */
   declare class Store<T> {
+    constructor() {}
     state: T | null;
     initialized: boolean;
     /**
      * 初期処理
      */
-    init?(): void;
+    init?(): void | Promise<void>;
     /**
      * actionに対するコールバックを定義
      */
@@ -54,7 +54,7 @@ declare namespace ydj {
   interface ActionMap {
     [action: string]: {
       store: Store<T>;
-      setState: React.Dispatch<React.SetStateAction<T | undefined>>;
+      setState: React.Dispatch<React.SetStateAction<T | undefined | null>>;
     };
   }
 }
