@@ -1,5 +1,4 @@
 import React from 'react';
-import ydj, { ActionMap } from 'index';
 
 const storeMap: Map<
   ydj.Store<any> | (new () => ydj.Store<any>),
@@ -7,37 +6,53 @@ const storeMap: Map<
 > = new Map();
 
 export const addStore = <T>(
-  storeClass: new () => ydj.Store<T> | ydj.Store<T>,
-  setState: React.Dispatch<React.SetStateAction<T | undefined>>,
-  init?: T
+  storeClass: (new () => ydj.Store<T>) | ydj.Store<T>,
+  setState: React.Dispatch<React.SetStateAction<T | undefined | null>>,
+  init?: T | null
 ) => {
   let value: ydj.Store<T> | undefined = storeMap.get(storeClass);
 
   if (!value) {
-    if (storeClass instanceof Function) {
-      value = new storeClass();
-    } else {
+    if (typeof storeClass !== 'function') {
       value = storeClass;
-    }
-
-    if (!value.initialized) {
-      value.init?.();
-      if (init !== undefined) value.state = init;
-      value.initialized = true;
+    } else {
+      value = new storeClass();
     }
 
     storeMap.set(storeClass, value);
 
     setActionMap(value, setState);
-    return value.state;
+
+    if (!value.initialized) {
+      const result = value.init?.();
+      if (result) {
+        return result.then(() => {
+          if (value) {
+            if (init !== undefined) value.state = init;
+            value.initialized = true;
+          }
+          return value?.state;
+        });
+      } else {
+        if (init !== undefined) value.state = init;
+        value.initialized = true;
+        return value.state;
+      }
+    }
   }
 };
 
-const actionMap: ActionMap = {};
+export const getStore = <T>(
+  storeClass: (new () => ydj.Store<T>) | ydj.Store<T>
+) => {
+  return storeMap.get(storeClass);
+};
+
+const actionMap: ydj.ActionMap = {};
 
 const setActionMap = <T>(
   store: ydj.Store<T>,
-  setState: React.Dispatch<React.SetStateAction<T | undefined>>
+  setState: React.Dispatch<React.SetStateAction<T | undefined | null>>
 ) => {
   for (let action in store.actions) {
     if (!actionMap[action]) {

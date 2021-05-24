@@ -1,16 +1,26 @@
-import ydj from 'index';
-import { useState } from 'react';
-import { addStore, dispatch } from '../core';
+import { useEffect, useState } from 'react';
+import { addStore, dispatch, getStore } from '../core';
 
 export const useStore = <T>(
-  storeClass: new () => ydj.Store<T> | ydj.Store<T>,
-  init?: T
+  storeClass: (new () => ydj.Store<T>) | ydj.Store<T>,
+  init?: T | null
 ) => {
+  const store = getStore(storeClass);
   const [state, setState] = useState(init);
-  const initState = addStore(storeClass, setState, init);
-  if (initState !== undefined) {
-    return [initState, dispatch];
-  } else {
-    return [state, dispatch];
+  if (!store) {
+    const initState = addStore(storeClass, setState, init);
+
+    if (initState instanceof Promise) {
+      initState.then((iState) => {
+        useEffect(() => {
+          setState(iState);
+        });
+      });
+    } else {
+      useEffect(() => {
+        setState(initState);
+      });
+    }
   }
+  return [state, dispatch];
 };

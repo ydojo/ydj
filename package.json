@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.41",
+    "@types/node": "^15.6.0",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/webpack": "^5.28.0",
@@ -38,7 +38,7 @@
     "webpack": "^5.35.0",
     "webpack-cli": "^4.6.0"
   },
-  "types": "./index.d.ts",
+  "types": "./@types/index.d.ts",
   "scripts": {
     "dev": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
     "build": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --env production"
