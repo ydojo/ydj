@@ -28,13 +28,14 @@ export const addStore = <T>(
       if (result) {
         return result.then(() => {
           if (value) {
-            if (init !== undefined) value.state = init;
+            if (init !== undefined && value.state === undefined)
+              value.state = init;
             value.initialized = true;
           }
           return value?.state;
         });
       } else {
-        if (init !== undefined) value.state = init;
+        if (init !== undefined && value.state === undefined) value.state = init;
         value.initialized = true;
         return value.state;
       }
