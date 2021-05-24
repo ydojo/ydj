@@ -5,9 +5,9 @@ export const useStore = <T>(
   storeClass: (new () => ydj.Store<T>) | ydj.Store<T>,
   init?: T | null
 ) => {
-  const store = getStore(storeClass);
   const [state, setState] = useState(init);
   useEffect(() => {
+    const store = getStore(storeClass);
     if (!store) {
       const initState = addStore(storeClass, setState, init);
 
