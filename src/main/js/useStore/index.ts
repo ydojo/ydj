@@ -7,17 +7,13 @@ export const useStore = <T>(
 ) => {
   const [state, setState] = useState(init);
   useEffect(() => {
-    const store = getStore(storeClass);
-    if (!store) {
-      const initState = addStore(storeClass, setState, init);
-
-      if (initState instanceof Promise) {
-        initState.then((iState) => {
-          setState(iState);
-        });
-      } else {
-        setState(initState);
-      }
+    const initState = addStore(storeClass, setState, init);
+    if (initState instanceof Promise) {
+      initState.then((iState) => {
+        setState(iState);
+      });
+    } else {
+      setState(initState);
     }
     return () => {
       const target = getStore(storeClass);
