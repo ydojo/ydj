@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addStore, getStore } from '../core';
+import { addStore, getStore, removeStore } from '../core';
 
 export const useStore = <T>(
   storeClass: (new () => ydj.Store<T>) | ydj.Store<T>,
@@ -19,6 +19,10 @@ export const useStore = <T>(
         setState(initState);
       }
     }
+    return () => {
+      const target = getStore(storeClass);
+      if (target) removeStore(target, setState);
+    };
   });
   return state;
 };

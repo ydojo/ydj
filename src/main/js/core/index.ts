@@ -57,36 +57,68 @@ const setActionMap = <T>(
 ) => {
   for (let action in store.actions) {
     if (!actionMap[action]) {
-      actionMap[action] = { store, setState };
-    } else {
-      new Error(`conflict action name: ${action}`);
+      actionMap[action] = {
+        store,
+        setStates: [],
+      };
+    }
+    const { store: target, setStates } = actionMap[action];
+
+    if (store !== target) {
+      throw new Error('store actions conflict');
+    }
+
+    if (!setStates.includes(setState)) {
+      setStates.push(setState);
     }
   }
 };
 
+export const removeStore = <T>(
+  store: ydj.Store<T>,
+  setState: React.Dispatch<React.SetStateAction<T | undefined | null>>
+) => {
+  Object.keys(store.actions).forEach((action) => {
+    const { store: target, setStates } = actionMap[action];
+    if (store === target) {
+      const newSetStates = setStates.filter((sState) => sState !== setState);
+      actionMap[action].setStates = newSetStates;
+    }
+  });
+};
+
+const setStatesFn = <T>(
+  setStates: React.Dispatch<React.SetStateAction<T | undefined | null>>[],
+  state: any
+) => {
+  setStates.forEach((setState) => {
+    setState(state);
+  });
+};
+
 export const dispatch = <T>(action: string, args?: T) => {
   if (actionMap[action]) {
-    const { store, setState } = actionMap[action];
+    const { store, setStates } = actionMap[action];
     const callback = store.actions[action];
     const res = callback.call(store, args);
 
     if (res) {
       if (res instanceof Promise) {
-        res.then(() => setState(store.state));
+        res.then(() => setStatesFn(setStates, store.state));
       } else {
         const { action: ac, data } = res;
         if (data instanceof Promise) {
           data.then((val) => {
-            setState(store.state);
+            setStatesFn(setStates, store.state);
             dispatch(ac, val);
           });
         } else {
-          setState(store.state);
+          setStatesFn(setStates, store.state);
           dispatch(ac, data);
         }
       }
     } else {
-      setState(store.state);
+      setStatesFn(setStates, store.state);
     }
   }
 };
