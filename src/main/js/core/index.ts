@@ -41,6 +41,7 @@ export const addStore = <T>(
       }
     }
   }
+  return value.state;
 };
 
 export const getStore = <T>(
