@@ -54,7 +54,7 @@ declare namespace ydj {
   interface ActionMap {
     [action: string]: {
       store: Store<T>;
-      setState: React.Dispatch<React.SetStateAction<T | undefined | null>>;
+      setStates: React.Dispatch<React.SetStateAction<T | undefined | null>>[];
     };
   }
 }
