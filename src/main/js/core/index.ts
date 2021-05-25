@@ -40,6 +40,8 @@ export const addStore = <T>(
         return value.state;
       }
     }
+  } else {
+    setActionMap(value, setState);
   }
   return value.state;
 };
