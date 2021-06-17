@@ -17,6 +17,7 @@ export default (e?: WebpackEnvironment): webpack.Configuration => {
       filename: e?.production ? 'ydj.min.js' : 'ydj.js',
       library: 'ydj',
       libraryTarget: 'umd',
+      globalObject: 'this',
     },
     module: {
       rules: [
