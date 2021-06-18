@@ -58,3 +58,9 @@ declare namespace ydj {
     };
   }
 }
+
+declare module 'ydj' {
+  export const Store = ydj.Store;
+  export const useStore = ydj.useStore;
+  export const dispatch = ydj.dispatch;
+}
