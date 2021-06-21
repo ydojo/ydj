@@ -19,6 +19,6 @@ export const useStore = <T>(
       const target = getStore(storeClass);
       if (target) removeStore(target, setState);
     };
-  });
+  }, []);
   return state;
 };

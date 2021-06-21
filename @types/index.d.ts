@@ -15,8 +15,8 @@ declare namespace ydj {
    */
   declare function useStore<T>(
     storeClass: (new () => Store<T>) | Store<T>,
-    init?: T
-  ): T;
+    init?: T | null
+  ): T | null | undefined;
 
   /**
    * Storeクラス
