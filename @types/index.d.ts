@@ -28,7 +28,7 @@ declare namespace ydj {
     /**
      * 初期処理
      */
-    init?(): void | Promise<void>;
+    init?(): void | Promise<undefined>;
     /**
      * actionに対するコールバックを定義
      */
@@ -38,15 +38,18 @@ declare namespace ydj {
     setState(state: T | null): void;
   }
 
+  // storecallback return interface
+  interface IStoreReturn {
+    action: string;
+    data?: any;
+  }
+
   /**
    * action callback
    */
   declare type StoreCallback = (
     arg: any
-  ) =>
-    | void
-    | { action: string; data?: any | Promise<any | void> }
-    | Promise<void>;
+  ) => void | Promise<void> | IStoreReturn | Promise<IStoreReturn>;
 
   /**
    * action map
@@ -60,6 +63,12 @@ declare namespace ydj {
 }
 
 declare module 'ydj' {
+  export const Store = ydj.Store;
+  export const useStore = ydj.useStore;
+  export const dispatch = ydj.dispatch;
+}
+
+declare module 'ydj/dist/ydj' {
   export const Store = ydj.Store;
   export const useStore = ydj.useStore;
   export const dispatch = ydj.dispatch;

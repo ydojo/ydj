@@ -99,6 +99,12 @@ const setStatesFn = <T>(
   });
 };
 
+const chainDispatch = (result: ydj.IStoreReturn | void): void => {
+  if (result) {
+    dispatch(result.action, result.data);
+  }
+};
+
 export const dispatch = <T>(action: string, args?: T) => {
   if (actionMap[action]) {
     const { store, setStates } = actionMap[action];
@@ -107,18 +113,13 @@ export const dispatch = <T>(action: string, args?: T) => {
 
     if (res) {
       if (res instanceof Promise) {
-        res.then(() => setStatesFn(setStates, store.state));
-      } else {
-        const { action: ac, data } = res;
-        if (data instanceof Promise) {
-          data.then((val) => {
-            setStatesFn(setStates, store.state);
-            dispatch(ac, val);
-          });
-        } else {
+        res.then((result: ydj.IStoreReturn | void) => {
           setStatesFn(setStates, store.state);
-          dispatch(ac, data);
-        }
+          chainDispatch(result);
+        });
+      } else {
+        setStatesFn(setStates, store.state);
+        chainDispatch(res);
       }
     } else {
       setStatesFn(setStates, store.state);
