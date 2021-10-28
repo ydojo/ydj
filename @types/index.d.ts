@@ -28,7 +28,7 @@ declare namespace ydj {
     /**
      * 初期処理
      */
-    init?(): void | Promise<undefined>;
+    init?(): void | Promise<void>;
     /**
      * actionに対するコールバックを定義
      */
