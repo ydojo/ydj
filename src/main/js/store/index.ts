@@ -1,5 +1,5 @@
 export abstract class Store<T> implements ydj.Store<T> {
-  state: T | null = null;
+  state?: T | null;
   initialized: boolean = false;
   abstract actions: {
     [action: string]: ydj.StoreCallback;

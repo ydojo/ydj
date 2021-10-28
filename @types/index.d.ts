@@ -23,7 +23,7 @@ declare namespace ydj {
    */
   declare class Store<T> {
     constructor() {}
-    state: T | null;
+    state?: T | null;
     initialized: boolean;
     /**
      * 初期処理
