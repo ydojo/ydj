@@ -49,7 +49,12 @@ declare namespace ydj {
    */
   declare type StoreCallback = (
     arg: any
-  ) => void | Promise<void> | IStoreReturn | Promise<IStoreReturn>;
+  ) =>
+    | void
+    | Promise<void>
+    | IStoreReturn
+    | Promise<IStoreReturn>
+    | Promise<IStoreReturn | void>;
 
   /**
    * action map
