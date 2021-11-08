@@ -9,7 +9,7 @@ declare namespace ydj {
   /**
    * dispatchメソッド
    */
-  declare function dispatch<T>(action: string, arg?: T): void;
+  declare async function dispatch<T>(action: string, arg?: T): Promise<void>;
   /**
    * useStoreメソッド
    */
